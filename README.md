@@ -2,10 +2,6 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Foobar
-
-Foobar is a Python library for dealing with word pluralization.
-
 ## Installation
 
 Use the package manager [NPM](https://nodejs.org/en/) for [nodeJS](https://pip.pypa.io/en/stable/) to install the required packages to run this application.
