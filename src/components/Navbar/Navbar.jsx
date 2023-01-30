@@ -4,13 +4,13 @@ const Navbar = () => {
     const {user} = useUser()
     return (
         <nav>
-            <ul class="menu">
+            <ul className="menu">
                 
-            {user !== null && <li><img src="/logos/Logo.png" height="50EM"/></li>}
+            {user !== null && <li><img alt="🤖" src="/logos/Logo.png" height="50EM"/></li>}
               <li>  <h1 style={{display: "inline"}}>Lost in translation</h1></li>
               </ul>
               
-              <ul class="menu">
+              <ul className="menu">
             {user !== null &&
 
 

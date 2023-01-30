@@ -9,6 +9,9 @@ const usernameConfig = {
   required: true,
   minLength: 3,
 };
+//will be use as string inside button, had to do this as react doesnt like arrows and dash in string 
+//and cannot comment inside HTML
+const arrow = `->`
 const LoginForm = () => {
   //hooks
   const {
@@ -23,24 +26,33 @@ const LoginForm = () => {
   const [apiError, setApiError] = useState(null);
   //side effects
   useEffect(() => {
+    //if there is a user logged in, navigate to translation page
     if (user !== null) {
       navigate("/Translation");
     }
-  }, [user, navigate]); //empty dependancies, only runs once
+  }, [user, navigate]); //updates when variables user or navigate is changed
   //event handlers
   const onSubmit = async ({ username }) => {
+    //disables button while loading
     setLoading(true);
+    //destructure error and success
     const [error, userResponse] = await loginUser(username);
+    //if there is an error, update state to error
     if (error !== null) {
       setApiError(error);
     }
+    //if successful- add key and user object to local storage and update state
+    //which will navigate to next page
     if (userResponse !== null) {
       storageSave(STORAGE_KEY_USER, userResponse);
       setUser(userResponse);
     }
+    //when done, re activate button
     setLoading(false);
   };
   //render functions
+
+  //display reason why input is not valid
   const errorMessage = (() => {
     if (!errors.username) {
       return null;
@@ -54,20 +66,20 @@ const LoginForm = () => {
   })();
   return (
     <>
-      <h2>What's your name?</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
-          <label htmlFor="username">Username: </label>
+          <label htmlFor="username">🎹</label>
           <input
             type="text"
-            placeholder="Type your name here"
+            placeholder="What's your name?"
             {...register("username", usernameConfig)}
-          />
-          {errorMessage}
-        </fieldset>
+            />
         <button type="submit" disabled={loading}>
-          Continue
+        
+        {arrow}
         </button>
+            {errorMessage}
+        </fieldset>
         {loading && <p>Logging in...</p>}
         {apiError && <p>{apiError}</p>}
       </form>
