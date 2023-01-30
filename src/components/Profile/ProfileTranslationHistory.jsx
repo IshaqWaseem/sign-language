@@ -1,6 +1,9 @@
 import ProfileTranslationHistoryItem from "./ProfileTranslationHistoryItem"
 const ProfileTranslationHistory = ({translations}) => {
-    const translationList =  translations.map((translation,index) => <ProfileTranslationHistoryItem key={index + '-' + translation} translation={translation} />)
+    let lastTen = translations
+    if (translations.length>10){
+        lastTen = translations.slice(Math.max(translations.length - 10, 1))}
+    const translationList =  lastTen.map((translation,index) => <ProfileTranslationHistoryItem key={index + '-' + translation} translation={translation} />)
     return (
         <section>
             <h4>Your translations history</h4>

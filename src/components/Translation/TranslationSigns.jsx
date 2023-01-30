@@ -1,6 +1,6 @@
 import TranslationSignsItem from "./TranslationSignsItem"
 const TranslationSigns = ({signs}) => {
-    const signList =  signs.map((sign) => <TranslationSignsItem key={sign} sign={sign} />)
+    const signList =  signs.map((sign,index) => <TranslationSignsItem key={index} sign={sign} />)
     return (
         <section>
             <h4>Your signs</h4>

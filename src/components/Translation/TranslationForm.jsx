@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { patchUser } from "../../api/user";
+import { STORAGE_KEY_USER } from "../../const/storageKeys";
+import { useUser } from "../../context/UserContext";
+import { storageSave } from "../../utils/storage";
 import TranslationSigns from "./TranslationSigns";
 
 const translationConfig = {
     required: true,
-    pattern: /^[A-Za-z]+$/
+    pattern: /^[A-Za-z]+$/,
+    maxLength:40,
 };
 const TranslationForm = () => {
+  const {user,setUser} = useUser()
+  
     const [signs,setSigns] = useState(null)
     const {
         handleSubmit,
@@ -15,12 +22,14 @@ const TranslationForm = () => {
       } = useForm();
 
   const onSubmit = async ({ translation }) => {
-    console.log(translation)
     const transArray = translation.split('');
-    console.log(transArray)
     setSigns(<TranslationSigns signs={transArray}/>)
+    const response = await patchUser(user.id,user.translations,translation)
+    setUser(response)
+    storageSave(STORAGE_KEY_USER, response)
+   
 };
-    console.log(errors)
+   
     const errorMessage = (() => {
         if (!errors.translation) {
           return null;

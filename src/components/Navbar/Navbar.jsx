@@ -1,24 +1,25 @@
 import { NavLink } from "react-router-dom"
 import { useUser } from "../../context/UserContext"
-
 const Navbar = () => {
     const {user} = useUser()
     return (
         <nav>
-            <ul>
-                <li>Lost in translation</li>
-            </ul>
+            <ul class="menu">
+                
+            {user !== null && <li><img src="/logos/Logo.png" height="50EM"/></li>}
+              <li>  <h1 style={{display: "inline"}}>Lost in translation</h1></li>
+              </ul>
+              
+              <ul class="menu">
             {user !== null &&
 
-                <ul>
+
                 <li>
-                    <NavLink to="/Translation">Translation</NavLink>
+                    <NavLink to="/Profile">{user.username}</NavLink>
                 </li>
-                <li>
-                    <NavLink to="/Profile">Profile</NavLink>
-                </li>
-            </ul>
+
             }
+            </ul>
         </nav>
     )
 }

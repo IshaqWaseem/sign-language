@@ -14,6 +14,7 @@ const checkForUser = async(username) => {
     }
 }
 
+
 const createUser = async (username) => {
     try {
         console.log(apiUrl)
@@ -45,4 +46,41 @@ export const loginUser = async (username) => {
     }
     return await createUser(username)
   
+}
+export const patchUser = async (id,prevTranslations,signTranslation) => {
+   
+        const response = await fetch(`${apiUrl}/${id}`,{
+            method:'PATCH',
+            headers:createHeaders(),
+            body:JSON.stringify({
+                translations: [...prevTranslations,signTranslation]
+            })
+        })
+        
+          if (!response.ok) {
+            throw new Error('Could not update translations history')
+          }
+
+          return await response.json()
+
+        
+}
+export const clearUser = async (id) => {
+
+   
+        const response = await fetch(`${apiUrl}/${id}`,{
+            method:'PATCH',
+            headers:createHeaders(),
+            body:JSON.stringify({
+                translations: []
+            })
+        })
+        
+          if (!response.ok) {
+            throw new Error('Could not update translations history')
+          }
+
+          return await response.json()
+
+        
 }
